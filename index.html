@@ -122,6 +122,29 @@
         .modal-close { position:absolute; top:16px; right:20px; background:none; border:none; color:var(--text2); font-size:1.4rem; cursor:pointer; transition:color 0.2s; }
         .modal-close:hover { color:var(--text); }
 
+        /* HUBSPOT FORM OVERRIDES */
+        #hubspot-form-container .hs-form label,
+        #hubspot-form-container .hs-form .hs-form-field > label { color:#f0f0f0 !important; font-size:0.72rem !important; font-weight:500 !important; text-transform:uppercase !important; letter-spacing:0.06em !important; margin-bottom:6px !important; }
+        #hubspot-form-container .hs-form .hs-input { background:#14141e !important; border:1px solid rgba(255,255,255,0.06) !important; border-radius:8px !important; color:#f0f0f0 !important; padding:11px 14px !important; font-family:'Inter',sans-serif !important; font-size:0.85rem !important; width:100% !important; }
+        #hubspot-form-container .hs-form .hs-input:focus { border-color:#00e5c8 !important; box-shadow:0 0 0 2px rgba(0,229,200,0.1) !important; outline:none !important; }
+        #hubspot-form-container .hs-form textarea.hs-input { resize:vertical !important; min-height:88px !important; }
+        #hubspot-form-container .hs-form .hs-button,
+        #hubspot-form-container .hs-form input[type="submit"] { background:#00e5c8 !important; color:#050508 !important; border:none !important; border-radius:8px !important; padding:13px 28px !important; font-weight:700 !important; font-size:0.9rem !important; cursor:pointer !important; font-family:'Inter',sans-serif !important; letter-spacing:0.01em !important; width:100% !important; transition:background 0.2s !important; }
+        #hubspot-form-container .hs-form .hs-button:hover,
+        #hubspot-form-container .hs-form input[type="submit"]:hover { background:#00ccb3 !important; }
+        #hubspot-form-container .hs-form .hs-error-msgs label,
+        #hubspot-form-container .hs-form .hs-error-msg { color:#ff6b6b !important; font-size:0.72rem !important; }
+        #hubspot-form-container .hs-form .hs-form-field { margin-bottom:16px !important; }
+        #hubspot-form-container .hs-form .legal-consent-container,
+        #hubspot-form-container .hs-form .hs-richtext { color:#55556a !important; font-size:0.72rem !important; line-height:1.6 !important; }
+        #hubspot-form-container .hs-form .legal-consent-container a { color:#00e5c8 !important; }
+        #hubspot-form-container .hs-form .hs-richtext p { color:#8a8a9a !important; }
+        #hubspot-form-container .submitted-message { color:#00e5c8 !important; font-size:1rem !important; }
+        #hubspot-form-container .hs-form fieldset { max-width:100% !important; }
+        #hubspot-form-container .hs-form .input { margin-right:0 !important; }
+        #hubspot-form-container .hs-form fieldset.form-columns-2 .input { margin-right:0 !important; }
+        #hubspot-form-container .hs-form .hs-form-required { color:#ff6b6b !important; }
+
         /* MOBILE */
         @media(max-width:900px) {
             .sgrid { grid-template-columns:repeat(2,1fr); }
@@ -410,6 +433,23 @@
 <script>
     // HubSpot form integration
     var HS_FORM_ID = "5d0f9db8-4e68-4d22-acca-bccdba3daf7f";
+    var customCSS = `
+        body { background: transparent !important; font-family: 'Inter', -apple-system, sans-serif !important; }
+        .hs-form label, .hs-form .hs-form-field > label span { color: #f0f0f0 !important; font-size: 0.72rem !important; font-weight: 500 !important; text-transform: uppercase !important; letter-spacing: 0.06em !important; }
+        .hs-form .hs-input { background: #14141e !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 8px !important; color: #f0f0f0 !important; padding: 11px 14px !important; font-family: 'Inter', sans-serif !important; font-size: 0.85rem !important; width: 100% !important; }
+        .hs-form .hs-input:focus { border-color: #00e5c8 !important; box-shadow: 0 0 0 2px rgba(0,229,200,0.1) !important; outline: none !important; }
+        .hs-form textarea.hs-input { resize: vertical !important; min-height: 88px !important; }
+        .hs-form .hs-button, .hs-form input[type="submit"] { background: #00e5c8 !important; color: #050508 !important; border: none !important; border-radius: 8px !important; padding: 13px 28px !important; font-weight: 700 !important; font-size: 0.9rem !important; cursor: pointer !important; font-family: 'Inter', sans-serif !important; width: 100% !important; }
+        .hs-form .hs-button:hover, .hs-form input[type="submit"]:hover { background: #00ccb3 !important; }
+        .hs-form .hs-error-msgs label, .hs-form .hs-error-msg { color: #ff6b6b !important; font-size: 0.72rem !important; }
+        .hs-form .hs-form-field { margin-bottom: 16px !important; }
+        .hs-form .hs-form-required { color: #ff6b6b !important; }
+        .hs-form .legal-consent-container, .hs-form .hs-richtext { color: #55556a !important; font-size: 0.72rem !important; }
+        .hs-form .legal-consent-container a { color: #00e5c8 !important; }
+        .hs-form fieldset { max-width: 100% !important; }
+        .hs-form .input { margin-right: 0 !important; }
+        .submitted-message { color: #00e5c8 !important; font-size: 1rem !important; }
+    `;
     document.addEventListener('DOMContentLoaded', function() {
         if (HS_FORM_ID && typeof hbspt !== 'undefined') {
             document.getElementById('fallback-form').style.display = 'none';
@@ -417,7 +457,20 @@
                 region: "na2",
                 portalId: "244498964",
                 formId: HS_FORM_ID,
-                target: "#hubspot-form-container"
+                target: "#hubspot-form-container",
+                css: customCSS,
+                cssRequired: customCSS,
+                onFormReady: function() {
+                    // Inject styles into iframe
+                    setTimeout(function() {
+                        var iframe = document.querySelector('#hubspot-form-container iframe');
+                        if (iframe && iframe.contentDocument) {
+                            var style = iframe.contentDocument.createElement('style');
+                            style.textContent = customCSS;
+                            iframe.contentDocument.head.appendChild(style);
+                        }
+                    }, 500);
+                }
             });
         }
     });
